@@ -51,7 +51,7 @@ void	ft_free(void **address)
 		node_to_free = node_to_free->next;
 	}
 	if (node_to_free == NULL && *address != NULL)
-		return (print_err(E3));
+		return (free(*address));
 	if (temp != NULL)
 		temp->next = node_to_free->next;
 	destroy_garbage_node(node_to_free);
