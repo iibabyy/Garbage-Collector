@@ -1,4 +1,4 @@
-#include "garb_utils.h"
+#include "../includes/garb_utils.h"
 
 static int	init_static(t_garbage **_static, void **arg);
 static int	is_destroyed(bool seter, bool value);

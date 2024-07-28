@@ -19,7 +19,7 @@ There is 3 function in this library :
 
 - ft_free : this function copy the real 'free( )' function. You can use it on all addresses, wheter they are allocated by the 'ft_malloc( )' function or not.
 
-- destroy_garbage : this function free the garbage and all the addresses allocated by 'ft_malloc( )' but not free'd by 'ft_free( )'. Make sure to use this function at the very end, because the others functions are disabled after that.
+- destroy_garbage : this function free the garbage and all the addresses allocated by 'ft_malloc( )' but not free'd by 'ft_free( )'. Use it with a NULL parameter. Make sure to use this function at the very end, because the others functions are disabled after that.
 
 
 ## More . . . 😆

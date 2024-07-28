@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"garbage_collector.h": "c"
+		"garbage_collector.h": "c",
+		"garb_utils.h": "c"
 	}
 }

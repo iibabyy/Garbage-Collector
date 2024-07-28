@@ -1,7 +1,7 @@
 #ifndef GARB_UTILS_H
 # define GARB_UTILS_H
 
-# include "../garbage_collector.h"
+# include "garbage_collector.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
