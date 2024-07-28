@@ -6,25 +6,25 @@ This Garbage Collector is a tool that replaces 'free( )' and 'malloc( )', to all
 
 # <p align="center">Compilation 📝</p>
   
-To use the Garbage Collector, you have to go insinde the folder and compiling whit 'make'.
-Then compile the 'garbage_collector.a' with others C files to use it.
-Dont forget to include 'garbage_collector.h'
+To use the Garbage Collector, you have to go inside the folder and compile it with 'make'.
+Then compile the 'garbage_collector.a' with other C files to use it.
+Don't forget to include 'garbage_collector.h'
 
 
 # <p align="center">Usage ⚙️</p>
 
-There is 3 function in this library :
+There are 3 functions in this library :
 
- - ft_malloc   : this function works like the real malloc function,  it returns a pointers to an heap allocated zone, of the size precised in parameter. Make sure to use this function at least one time before the others.
+ - ft_malloc   : this function works like the real malloc function,  it returns a pointers to an heap allocated zone, of the size specified in parameter. Make sure to use this function at least one time before the others.
 
-- ft_free : this function copy the real 'free( )' function. You can use it on all addresses, wheter they are allocated by the 'ft_malloc( )' function or not.
+- ft_free : this function copy the real 'free( )' function. You can use it on all addresses, whether they are allocated by the 'ft_malloc( )' function or not.
 
-- destroy_garbage : this function free the garbage and all the addresses allocated by 'ft_malloc( )' but not free'd by 'ft_free( )'. Use it with a NULL parameter. Make sure to use this function at the very end, because the others functions are disabled after that.
+- destroy_garbage : this function free the garbage and all the addresses allocated by 'ft_malloc( )' but not freed by 'ft_free( )'. Use it with a NULL parameter. Make sure to use this function at the very end, because the others functions are disabled after that.
 
 
 ## More . . . 😆
 
-If you wanna find more of my [projects](https://photo.capital.fr/musk-25050#the-boring-company-des-tunnels-pour-desengorger-le-trafic-en-ville-434177) .
+If you want to find more of my [projects](https://photo.capital.fr/musk-25050#the-boring-company-des-tunnels-pour-desengorger-le-trafic-en-ville-434177) .
         
         
     
