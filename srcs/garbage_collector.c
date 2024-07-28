@@ -35,23 +35,23 @@ void	ft_free(void **address)
 	t_garb_node			*node_to_free;
 	t_garb_node			*temp;
 
+	if (address == NULL || *address == NULL)
+		return ;
 	if (is_destroyed(false, false) != false)
 		return (print_err(E1));
 	if (garbage == NULL)
 		return ((void)init_static(&garbage, address));
-	if (address == NULL || *address == NULL)
-		return ;
 	node_to_free = garbage->first;
 	temp = NULL;
 	while (node_to_free != NULL)
 	{
-		if (node_to_free->address == address)
+		if (node_to_free->address == *address)
 			break ;
 		temp = node_to_free;
 		node_to_free = node_to_free->next;
 	}
-	if (node_to_free == NULL)
-		return ;
+	if (node_to_free == NULL && *address != NULL)
+		return (print_err(E3));
 	if (temp != NULL)
 		temp->next = node_to_free->next;
 	destroy_garbage_node(node_to_free);
