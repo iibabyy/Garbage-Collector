@@ -25,15 +25,17 @@ CC_FLAGS = -Wall -Wextra -Werror -O3
 all: $(NAME)
 
 %.o : %.c
-	$(CC) $(CC_FLAGS) -c $< -o $@
+	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(SRCS)
-	ar cr $(NAME) $(OBJS)
+	@ar cr $(NAME) $(OBJS)
+	@echo "$(GREEN)Garbage Collector library done ✅$(END)"
 
 clean:
-	rm -rf $(OBJS)
+	@rm -rf $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
+	@echo "$(RED)Garbage Collector library cleaned $(END)"
 
 re: clean fclean all
