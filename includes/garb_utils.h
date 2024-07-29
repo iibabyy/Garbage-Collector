@@ -8,7 +8,7 @@
 # include <stdlib.h>
 # include <stddef.h>
 # include <stdbool.h>
-
+# include <errno.h>
 # define E1 "Error: use ft_malloc before any other garbage_collector functions"
 # define E2 "Error: can't use an garbage function after using destroy_garbage()"
 # define E3 "Error: use of ft_free on an address non allocated by ft_malloc()"

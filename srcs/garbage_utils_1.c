@@ -27,10 +27,10 @@ t_garbage	*init_garbage(void)
 	return (garbage);
 }
 
-void	destroy_garbage_node(t_garb_node *node)
+void	destroy_garbage_node(t_garb_node *node_to_destroy, t_garbage *garbage)
 {
-	free(node->address);
-	free(node);
+	free(node_to_destroy->address);
+	free(node_to_destroy);
 }
 
 int	new_garb_node(void *adress, t_garbage *garbage)

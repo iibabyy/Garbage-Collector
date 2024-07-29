@@ -6,7 +6,7 @@
 /*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 22:31:32 by ibaby             #+#    #+#             */
-/*   Updated: 2024/07/28 01:44:19 by ibaby            ###   ########.fr       */
+/*   Updated: 2024/07/29 11:23:47 by ibaby            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ typedef struct s_garbage
 
 void	*ft_malloc(unsigned long size);
 void	ft_free(void **address);
-void	destroy_garbage(t_garbage *only_for_init);
+void	destroy_garbage(t_garbage *NULL_PARAM);
 
 #endif
