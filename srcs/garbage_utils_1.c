@@ -45,21 +45,3 @@ int	new_garb_node(void *address, t_garbage *garbage)
 	garbage->first = new_node;
 	return (EXIT_SUCCESS);
 }
-
-//TODO: Print errors only if user want to
-
-/*void	print_err(char *error)
-{
-	int	i;
-	
-	if (error == NULL)
-		return ;
-	i = -1;
-	while (error[++i])
-	{
-		if (write(STDERR_FILENO, &error[i], 1) < 0)
-			return ;
-	}
-	if (write(STDERR_FILENO, "\n", 1) < 0)
-		return ;
-}*/
