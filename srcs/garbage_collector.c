@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   garbage_collector.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ibaby <ibaby@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 11:20:57 by ibaby             #+#    #+#             */
-/*   Updated: 2024/07/29 11:27:26 by ibaby            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "garb_utils.h"
 
-#include "../includes/garb_utils.h"
-
-static int	init_static(t_garbage **_static, void **arg);
-static int	is_destroyed(bool seter, bool value);
+static int	is_destroyed(bool setter, bool value);
+static int	init_static(t_garbage **_static, void *arg);
 
 /*	this function works like the real malloc function,
 	it returns a pointers to an heap allocated zone.
@@ -23,10 +11,10 @@ void	*ft_malloc(unsigned long size)
 	static t_garbage	*garbage = NULL;
 	void				*ptr;
 
-	if (is_destroyed(false, false) == 3)
-		is_destroyed(true, false);
-	if (is_destroyed(false, false) != false)
-		return (print_err(E2), NULL);
+	if (is_destroyed(READER, false) == NOT_DEFINED)
+		is_destroyed(SETTER, false);
+	if (is_destroyed(READER, false) == true)
+		return (NULL);
 	if (garbage == NULL)
 	{
 		garbage = init_garbage();
@@ -35,45 +23,37 @@ void	*ft_malloc(unsigned long size)
 	}
 	ptr = malloc(size);
 	if (ptr == NULL)
-		return (perror(MALLOC_FAILED), NULL);
-	if (new_garb_node(ptr, garbage) == EXIT_FAILURE)
-	{
-		free(ptr);
 		return (NULL);
-	}
+	if (new_garb_node(ptr, garbage) == EXIT_FAILURE)
+		return (free(ptr), NULL);
 	return (ptr);
 }
 
 /*this function copy the real 'free( )' function.
 You can use it on all addresses, 
 whether they are allocated by the 'ft_malloc( )' function or not.*/
-void	ft_free(void **address)
+void	ft_free(void *address)
 {
 	static t_garbage	*garbage = NULL;
 	t_garb_node			*node_to_free;
 	t_garb_node			*temp;
 
-	if (address == NULL || *address == NULL)
-		return (free(*address), *address = NULL);
-	if (is_destroyed(false, false) != false)
-		return (print_err(E1));
+	if (address == NULL)
+		return ;
+	if (is_destroyed(READER, false) != false)
+		return ;
 	if (garbage == NULL)
 		return ((void)init_static(&garbage, address));
-	node_to_free = garbage->first;
-	temp = NULL;
-	while (node_to_free != NULL)
-	{
-		if (node_to_free->address == *address)
-			break ;
-		temp = node_to_free;
-		node_to_free = node_to_free->next;
-	}
-	if (node_to_free == NULL && *address != NULL)
-		return (free(*address));
-	if (temp != NULL)
+	node_to_free = find_by_address(address, garbage);
+	if (node_to_free == NULL)
+		return ;
+	temp = find_before_node(node_to_free, garbage);
+	if (temp == NULL)
+		garbage->first = node_to_free->next;
+	else
 		temp->next = node_to_free->next;
 	destroy_garbage_node(node_to_free);
-	*address = NULL;
+	return ;
 }
 
 /*this function free the garbage and all the addresses allocated
@@ -86,11 +66,11 @@ void	destroy_garbage(t_garbage *garb)
 	t_garb_node			*node;
 	t_garb_node			*temp;
 	
-	if (is_destroyed(false, false) != false)
-		return (print_err(E2));
+	if (is_destroyed(READER, false) != false)
+		return ;
 	if (garbage == NULL)
 	{
-		init_static(&garbage, (void **)&garb);
+		init_static(&garbage, garb);
 		return ;
 	}
 	node = garbage->first;
@@ -101,23 +81,22 @@ void	destroy_garbage(t_garbage *garb)
 		destroy_garbage_node(temp);
 	}
 	free(garbage);
-	garbage = NULL;
-	is_destroyed(true, true);
+	is_destroyed(SETTER, true);
 }
 
-static int	init_static(t_garbage **_static, void **arg)
+static int	init_static(t_garbage **_static, void *arg)
 {
-	if (arg == NULL || *arg == NULL)
-		return (print_err(E1), EXIT_FAILURE);
-	*_static = (t_garbage *)*arg;
+	if (arg == NULL)
+		return (EXIT_FAILURE);
+	*_static = (t_garbage *)arg;
 	return (EXIT_SUCCESS);
 }
 
-static int	is_destroyed(bool seter, bool value)
+static int	is_destroyed(bool setter, bool value)
 {
-	static int	is_destroy = 3;
+	static int	is_destroy = NOT_DEFINED;
 
-	if (seter == true)
+	if (setter == true)
 		is_destroy = value;
 	return (is_destroy);
 }

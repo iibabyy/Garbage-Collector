@@ -1,4 +1,4 @@
-#include "../includes/garb_utils.h"
+#include "garb_utils.h"
 
 t_garb_node	*find_by_address(void *address, t_garbage *garbage)
 {
