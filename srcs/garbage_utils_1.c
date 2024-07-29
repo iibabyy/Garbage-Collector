@@ -1,4 +1,4 @@
-#include "../includes/garb_utils.h"
+#include "garb_utils.h"
 
 t_garb_node	*find_in_garbage(void *address, t_garbage *garbage)
 {
@@ -20,44 +20,46 @@ t_garbage	*init_garbage(void)
 
 	garbage = malloc(sizeof(t_garbage) * 1);
 	if (garbage == NULL)
-		return (free(garbage), perror(MALLOC_FAILED), NULL);
+		return (NULL);
 	garbage->first = NULL;
-	ft_free((void **)&garbage);
+	ft_free(garbage);
 	destroy_garbage(garbage);
 	return (garbage);
 }
 
-void	destroy_garbage_node(t_garb_node *node)
+void	destroy_garbage_node(t_garb_node *node_to_destroy)
 {
-	free(node->address);
-	free(node);
+	free(node_to_destroy->address);
+	free(node_to_destroy);
 }
 
-int	new_garb_node(void *adress, t_garbage *garbage)
+int	new_garb_node(void *address, t_garbage *garbage)
 {
 	t_garb_node	*new_node;
 
 	new_node = malloc(sizeof(t_garb_node) * 1);
 	if (new_node == NULL)
-		return (perror(MALLOC_FAILED), EXIT_FAILURE);
-	new_node->address = adress;
+		return (EXIT_FAILURE);
+	new_node->address = address;
 	new_node->next = garbage->first;
 	garbage->first = new_node;
 	return (EXIT_SUCCESS);
 }
 
-void	print_err(char *error)
+//TODO: Print errors only if user want to
+
+/*void	print_err(char *error)
 {
 	int	i;
-
+	
 	if (error == NULL)
 		return ;
 	i = -1;
 	while (error[++i])
 	{
 		if (write(STDERR_FILENO, &error[i], 1) < 0)
-			return (print_err(WRITE_ERROR));
+			return ;
 	}
 	if (write(STDERR_FILENO, "\n", 1) < 0)
-		return (print_err(WRITE_ERROR));
-}
+		return ;
+}*/
